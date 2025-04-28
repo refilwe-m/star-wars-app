@@ -1,8 +1,9 @@
 import { envConfig } from "../../config";
 
 const { baseURL } = envConfig;
+const peopleURL = `${baseURL}/people`;
 
 export const STAR_WARS_URLS = {
-	getPeople: `${baseURL}/people`,
-	getPerson: (id: number) => `${baseURL}/people/${id}`,
+	getPeople: peopleURL,
+	getPerson: (id: number) => `${peopleURL}/${id}`,
 };
