@@ -1,28 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import map from "lodash";
+import map from "lodash/map";
 
-import { StarWarsService } from "@/services";
+import { useGetStarWarsCharacters } from "@/queries";
+import type { CharacterAPI } from "@/services/types";
 
 export const Route = createFileRoute("/")({
 	component: App,
 });
 
 function App() {
-	const { data } = useQuery({
-		queryKey: ["people"],
-		queryFn: () => StarWarsService.getCharacters,
-	});
-
+	const { data, isLoading } = useGetStarWarsCharacters();
+	console.log(data, isLoading);
 	return (
-		<main className="text-center">
-			<ul className="grid">
-				{map(data, ({ name }) => (
-					<li className="text-blue-800 text-4xl" key={name}>
-						{name}
-					</li>
-				))}
-			</ul>
+		<main className="w-full h-screen text-center bg-center bg-[url('../assets/images/background.jpg')]">
+			{isLoading ? (
+				<>isLoading...</>
+			) : (
+				<ul className="grid">
+					{map(data, ({ name, gender }: CharacterAPI, index: number) => (
+						<>
+							<p>{gender} </p>
+							<li className="text-blue-800 text-4xl" key={name + index}>
+								{name}
+							</li>
+						</>
+					))}
+				</ul>
+			)}
 		</main>
 	);
 }
