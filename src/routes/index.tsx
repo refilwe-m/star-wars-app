@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import logo from "../logo.svg";
+import map from "lodash";
+
+import { StarWarsService } from "@/services";
 
 export const Route = createFileRoute("/")({
 	component: App,
@@ -9,22 +11,18 @@ export const Route = createFileRoute("/")({
 function App() {
 	const { data } = useQuery({
 		queryKey: ["people"],
-		queryFn: () =>
-			fetch("https://swapi.tech/api/people")
-				.then((res) => res.json())
-				.then((data) => data.results as { name: string }[]),
-		initialData: [],
+		queryFn: () => StarWarsService.getCharacters,
 	});
 
 	return (
-		<div className="text-center">
+		<main className="text-center">
 			<ul className="grid">
-				{data?.map((person) => (
-					<li className="text-blue-800 text-4xl" key={person.name}>
-						{person.name}
+				{map(data, ({ name }) => (
+					<li className="text-blue-800 text-4xl" key={name}>
+						{name}
 					</li>
 				))}
 			</ul>
-		</div>
+		</main>
 	);
 }
