@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { STAR_WARS_URLS } from "./star-wars-urls";
 
-const getCharacters = (search: string) => {
+const getCharacters = (search?: string) => {
 	return axios
 		.get(STAR_WARS_URLS.getPeople, {
 			params: { name: search },

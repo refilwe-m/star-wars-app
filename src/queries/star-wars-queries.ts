@@ -1,19 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
+import map from "lodash/map";
 
 import { StarWarsService } from "@/services";
-import type { CharacterAPI } from "@/services/types";
-import map from "lodash/map";
 
 export const useGetStarWarsCharacters = (search: string) => {
 	return useQuery({
 		queryKey: ["people"],
 		queryFn: () => StarWarsService.getCharacters(search),
-		select: (data) => {
-			return map(data.result, ({ properties, uid }) => ({
-				uid,
-				...properties,
-			})) as CharacterAPI[];
-		},
+		select: (data) =>
+			map(data.result, ({ uid, properties }) => ({
+				id: uid,
+				name: properties?.name ?? "-",
+			})),
 		enabled: !!search,
 	});
 };
