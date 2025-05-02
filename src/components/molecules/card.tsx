@@ -5,18 +5,17 @@ import { type FC, useState } from "react";
 export type CardProps = {
 	character: CharacterAPI | null;
 	isLoading: boolean;
-	onClose: (option: string) => void;
+	onClose: () => void;
 };
 
-export const Card: FC<CardProps> = ({ character, isLoading }) => {
+export const Card: FC<CardProps> = ({ character, isLoading, onClose }) => {
 	const [activeTab, setActiveTab] = useState("info");
-	console.log(character);
 	return isLoading ? (
 		<>Loading....</>
 	) : (
 		<section className="w-full max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl">
 			<section className="relative h-40 bg-red-900 overflow-hidden">
-				<section className="absolute inset-0 bg-gradient-to-br from-red-800 to-black opacity-90" />
+				<section className="absolute inset-0 bg-gradient-to-br from-yellow-800 to-black opacity-90" />
 				<section className="absolute bottom-0 left-0 w-full p-6">
 					<h1 className="text-3xl font-bold text-white">{character?.name}</h1>
 					<section className="flex items-center mt-2">
@@ -24,6 +23,14 @@ export const Card: FC<CardProps> = ({ character, isLoading }) => {
 						<span className="text-gray-300">{character?.gender}</span>
 					</section>
 				</section>
+				<button
+					type="button"
+					onClick={onClose}
+					className="absolute top-4 right-4 bg-black bg-opacity-70 rounded-full p-2 text-white hover:bg-opacity-100 transition"
+					aria-label="Remove character"
+				>
+					×
+				</button>
 			</section>
 
 			{/* Tab navigation */}
@@ -63,9 +70,9 @@ export const Card: FC<CardProps> = ({ character, isLoading }) => {
 							<section className="flex-1">
 								<p className="text-xs text-gray-500">Physical Appearance</p>
 								<section className="flex justify-between mt-1">
-									<span>Hair: {character?.hair_color}</span>
-									<span>Skin: {character?.skin_color}</span>
-									<span>Eyes: {character?.eye_color}</span>
+									<p>Hair: {character?.hair_color}</p>
+									<p>Skin: {character?.skin_color}</p>
+									<p>Eyes: {character?.eye_color}</p>
 								</section>
 							</section>
 						</section>

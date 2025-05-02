@@ -26,6 +26,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.6",
+    "tooltip": "^1.6.1",
     "use-debounce": "^10.0.4"
   },
   "devDependencies": {
@@ -39,7 +40,7 @@
     "jsdom": "^26.0.0",
     "typescript": "^5.7.2",
     "vite": "^6.1.0",
-    "vitest": "^3.0.5",
+    "vitest": "^3.1.2",
     "web-vitals": "^4.2.4"
   }
 }

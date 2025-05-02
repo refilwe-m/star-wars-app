@@ -18,7 +18,7 @@ export const useGetStarWarsCharacters = (search: string) => {
 
 export const useGetStarWarsCharacter = (id: string) => {
 	return useQuery({
-		queryKey: ["person"],
+		queryKey: ["person", id],
 		queryFn: () => StarWarsService.getCharacter(id),
 		enabled: !!id,
 		select: ({ result }) => ({ ...result?.properties, uid: result?.uid }),
