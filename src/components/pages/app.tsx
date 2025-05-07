@@ -1,5 +1,8 @@
 import { Logo } from "@/assets";
 import { useGetStarWarsCharacter, useGetStarWarsCharacters } from "@/queries";
+import { STAR_WARS_URLS } from "@/services/star-wars-urls";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { ComboBox, type Option } from "../atoms";
 import { Card } from "../molecules";
@@ -13,6 +16,15 @@ export const App = () => {
 		useGetStarWarsCharacter(characters?.[0]?.id);
 	const { data: character2, isLoading: loadingSecondCharacter } =
 		useGetStarWarsCharacter(characters?.[1]?.id);
+	const { data } = useQuery({
+		queryKey: ["avatar", character1?.uid],
+		queryFn: () =>
+			axios
+				.get(STAR_WARS_URLS.getAvatar(`id/${character1.uid}.json`))
+				.then((res) => res.data),
+	});
+
+	console.log("images", data);
 	const hasChar1Info = useMemo(
 		() => character1 && !loadingFirstCharacter,
 		[character1, loadingSecondCharacter],
@@ -53,6 +65,7 @@ export const App = () => {
 				<section id="comparison-area" className="flex gap-2 items-center py-3">
 					{hasChar1Info && (
 						<Card
+							avatar={data?.image ?? ""}
 							isLoading={loadingFirstCharacter}
 							character={character1}
 							onClose={() => onRemoveCharacter(character1?.uid)}

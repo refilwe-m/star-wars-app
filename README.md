@@ -25,6 +25,8 @@ This project uses [Vitest](https://vitest.dev/) for testing. You can run the tes
 yarn test
 ```
 
+- Unit Test for comparing the characters
+
 ## Styling
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.

@@ -6,6 +6,7 @@ export type CardProps = {
 	character: CharacterAPI | null;
 	isLoading: boolean;
 	onClose: () => void;
+	avatar?: string;
 };
 
 export const Card: FC<CardProps> = ({ character, isLoading, onClose }) => {
