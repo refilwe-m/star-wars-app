@@ -1,11 +1,10 @@
 import {
 	Combobox,
-	ComboboxButton,
 	ComboboxInput,
 	ComboboxOption,
 	ComboboxOptions,
 } from "@headlessui/react";
-import { CheckIcon, ChevronsUpDownIcon, Search } from "lucide-react";
+import { CheckIcon, Search } from "lucide-react";
 export type Option = { id: string; name: string };
 
 type ComboBoxProps = {

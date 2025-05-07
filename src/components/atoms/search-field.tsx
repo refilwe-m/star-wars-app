@@ -4,11 +4,7 @@ type SearchFieldProps = {
 	onChange: (value: string) => void;
 };
 
-export const SearchField = ({
-	value,
-	onChange,
-	isLoading = false,
-}: SearchFieldProps) => {
+export const SearchField = ({ value, onChange }: SearchFieldProps) => {
 	return (
 		<input
 			type="text"
