@@ -10,4 +10,5 @@ export type CharacterAPI = {
 	language: string;
 	birth_year: string;
 	uid: string;
+	films: [];
 };

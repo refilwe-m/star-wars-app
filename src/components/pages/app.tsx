@@ -1,30 +1,25 @@
-import { Logo } from "@/assets";
-import { useGetStarWarsCharacter, useGetStarWarsCharacters } from "@/queries";
-import { STAR_WARS_URLS } from "@/services/star-wars-urls";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
+
+import { Logo } from "@/assets";
+import { useGetStarWarsCharacter, useGetStarWarsCharacterImage, useGetStarWarsCharacters } from "@/queries";
 import { ComboBox, type Option } from "../atoms";
 import { Card } from "../molecules";
 
 export const App = () => {
 	const [query, setQuery] = useState("");
+	const [query2, setQuery2] = useState("");
 	const [selected, setSelected] = useState<Option | null>(null);
+	const [selected2, setSelected2] = useState<Option | null>(null);
 	const [characters, setCharacters] = useState<Option[]>([]);
 	const { data: searchData } = useGetStarWarsCharacters(query);
+	const { data: searchData2 } = useGetStarWarsCharacters(query2);
 	const { data: character1, isLoading: loadingFirstCharacter } =
 		useGetStarWarsCharacter(characters?.[0]?.id);
 	const { data: character2, isLoading: loadingSecondCharacter } =
 		useGetStarWarsCharacter(characters?.[1]?.id);
-	const { data } = useQuery({
-		queryKey: ["avatar", character1?.uid],
-		queryFn: () =>
-			axios
-				.get(STAR_WARS_URLS.getAvatar(`id/${character1.uid}.json`))
-				.then((res) => res.data),
-	});
+	const { data:image1 } = useGetStarWarsCharacterImage(character1?.uid)
+	const { data:image2 } = useGetStarWarsCharacterImage(character2?.uid)
 
-	console.log("images", data);
 	const hasChar1Info = useMemo(
 		() => character1 && !loadingFirstCharacter,
 		[character1, loadingSecondCharacter],
@@ -36,12 +31,12 @@ export const App = () => {
 
 	const onCharacterSelection = () => {
 		if (selected) setCharacters((prev) => [...prev, selected]);
+		if (selected2) setCharacters((prev) => [...prev, selected2]);
 	};
 
 	const onRemoveCharacter = (_id: string) => {
 		setCharacters(characters.filter(({ id }) => id !== _id));
 	};
-	console.log("Characters", characters, character1);
 
 	useEffect(() => {
 		onCharacterSelection();
@@ -50,22 +45,30 @@ export const App = () => {
 	return (
 		<main className="w-full min-h-screen text-center bg-center bg-[url(/src/assets/images/background.jpg)] bg-cover p-4">
 			<header className="flex flex-col items-center">
-				<img src={Logo} alt="logo" className="w-md" />
-				<h1 className="text-4xl font-bold text-amber-500 mb-8">
+				<img src={Logo} alt="logo" className="md:w-xs" />
+				<h1 className="text-lg lg:text-4xl font-bold text-amber-500 mb-8">
 					Character Comparison
 				</h1>
-				<section>
+				<section className="w-full flex lg:flex-row flex-col justify-center items-center gap-2">
 					<ComboBox
 						value={selected}
 						onChange={setSelected}
 						options={searchData ?? []}
 						setQuery={setQuery}
+						placeholder='Search 1st Character'
+					/>
+					<ComboBox
+						value={selected2}
+						onChange={setSelected2}
+						options={searchData2 ?? []}
+						setQuery={setQuery2}
+						placeholder='Search 2nd Character'
 					/>
 				</section>
 				<section id="comparison-area" className="flex gap-2 items-center py-3">
 					{hasChar1Info && (
 						<Card
-							avatar={data?.image ?? ""}
+							avatar={image1?.imageUrl ?? ""}
 							isLoading={loadingFirstCharacter}
 							character={character1}
 							onClose={() => onRemoveCharacter(character1?.uid)}
@@ -73,6 +76,7 @@ export const App = () => {
 					)}
 					{hasChar2Info && (
 						<Card
+							avatar={image2?.imageUrl ?? ""}
 							isLoading={loadingSecondCharacter}
 							character={character2}
 							onClose={() => onRemoveCharacter(character2?.uid)}

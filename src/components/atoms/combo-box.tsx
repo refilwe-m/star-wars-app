@@ -37,9 +37,7 @@ export const ComboBox = ({
 						/>
 						<section className="absolute inset-y-0 right-0 flex items-center pr-2">
 							<Search className="h-5 w-5 text-gray-400" />
-						</section>
-					</div>
-					<button
+							<button
 						onClick={() => {
 							onChange(null);
 							setQuery("");
@@ -47,8 +45,12 @@ export const ComboBox = ({
 						type="button"
 						className="bg-white rounded-lg px-2 py-3 text-xs"
 					>
-						Clear
+						X
 					</button>
+							
+						</section>
+					</div>
+					
 				</section>
 
 				{options.length > 0 && (

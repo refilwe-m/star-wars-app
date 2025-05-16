@@ -24,3 +24,14 @@ export const useGetStarWarsCharacter = (id: string) => {
 		select: ({ result }) => ({ ...result?.properties, uid: result?.uid }),
 	});
 };
+
+export const useGetStarWarsCharacterImage = (uid: string) => {
+	return  useQuery({
+		queryKey: ["avatar",uid],
+		queryFn: ()=> StarWarsService.getAvatar(uid),
+		select: (res) => ({
+			imageUrl: res.image
+		}),
+		enabled: !!uid,
+	});
+}
