@@ -4,7 +4,9 @@ import {
 	ComboboxOption,
 	ComboboxOptions,
 } from "@headlessui/react";
-import { CheckIcon, Search } from "lucide-react";
+import { CheckIcon, Search, XIcon } from "lucide-react";
+import { ClipLoader } from "react-spinners";
+
 export type Option = { id: string; name: string };
 
 type ComboBoxProps = {
@@ -26,9 +28,9 @@ export const ComboBox = ({
 }: ComboBoxProps) => {
 	return (
 		<Combobox value={value} onChange={onChange}>
-			<div className="relative">
+			<div className="relative border-3 border-gray-300 rounded-2xl">
 				<section className="flex items-center gap-2">
-					<div className="relative w-full cursor-default overflow-hidden rounded-xl border border-gray-300 bg-white text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+					<div className="relative w-full cursor-default overflow-hidden rounded-xl bg-white/80 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
 						<ComboboxInput
 							className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
 							displayValue={(option: Option | null) => option?.name || ""}
@@ -37,21 +39,23 @@ export const ComboBox = ({
 						/>
 						<section className="absolute inset-y-0 right-0 flex items-center pr-2">
 							<Search className="h-5 w-5 text-gray-400" />
-						</section>
-					</div>
-					<button
+							<button
+						aria-label="Clear search"
 						onClick={() => {
 							onChange(null);
 							setQuery("");
 						}}
 						type="button"
-						className="bg-white rounded-lg px-2 py-3 text-xs"
+						className="px-2 py-3 text-xs"
 					>
-						Clear
+						<XIcon className="h-3 w-3 text-gray-400 hover:h-4 hover:w-4" />
 					</button>
+						</section>
+					</div>
+					
 				</section>
 
-				{options.length > 0 && (
+				{loading ? <ClipLoader /> : (
 					<ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 						{options.map((option) => (
 							<ComboboxOption
