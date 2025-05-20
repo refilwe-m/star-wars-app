@@ -1,3 +1,4 @@
+import toast, { Toaster } from "react-hot-toast";
 import { useEffect, useMemo, useState } from "react";
 
 import { ComboBox, RobotAnimation,Logo, type Option } from "../atoms";
@@ -27,6 +28,24 @@ export const App = () => {
 
 	const onCharacterSelection = () => {
 		if (selected) {
+			const isAlreadySelected = characters.some(
+				({ id }) => id === selected.id,
+			);
+			if (isAlreadySelected) {
+				toast.error("Character Already selected", {
+					icon: "🤖",
+				});
+				setSelected(null);
+				return;
+			}
+			if (characters.length >= 2) {
+				toast.error("You can only compare 2 characters", {
+					icon: "🤖",
+				});
+				setSelected(null);
+				return;
+			}
+	
 			setCharacters((prev) => [...prev, selected]);
 			setSelected(null);
 		};
@@ -106,6 +125,7 @@ export const App = () => {
 					)}
 				</section>
 			</header>
+			 <Toaster />
 		</main>
 	);
 };

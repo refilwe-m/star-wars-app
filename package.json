@@ -29,6 +29,7 @@
     "lucide-react": "^0.503.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "react-spinners": "^0.17.0",
     "tailwindcss": "^4.0.6",
     "tooltip": "^1.6.1",

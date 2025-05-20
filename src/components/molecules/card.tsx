@@ -106,13 +106,6 @@ export const Card: FC<CardProps> = ({ character, isLoading,isWinner=false, onClo
             <section className="flex justify-center">
               <img src={avatar} alt="avatar" className="w-44 h-44"/>
             </section>
-            
-           {/*  {character?.films && character?.films.map((film, index) => (
-              <section key={index} className="bg-gray-900 p-4 rounded-md flex items-center">
-                <Film className="text-red-500 mr-3" size={20} />
-                <p>{filmTitles[film] || "Unknown Film"}</p>
-              </section>
-            ))} */}
           </section>
         )}
         
