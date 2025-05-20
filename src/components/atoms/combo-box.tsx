@@ -40,13 +40,11 @@ export const ComboBox = ({
 								debounce(() => {
 									setQuery(value);
 								}, 1000)();
-
-								/* debounce(() => setQuery(event.target.value), 500); */
 							}}
 							placeholder={placeholder}
 						/>
 						<section className="absolute inset-y-0 right-0 flex items-center pr-2">
-							<Search className="h-5 w-5 text-gray-400" />
+							<Search className="h-5 w-5 text-gray-400 md:visible invisible" />
 							<button
 						aria-label="Clear search"
 						onClick={() => {
@@ -70,7 +68,7 @@ export const ComboBox = ({
 								key={option.id}
 								value={option}
 								className={({ focus }) =>
-									`relative cursor-default select-none py-2 pl-10 pr-4 ${
+									`relative cursor-default select-none py-2 px-2 ${
 										focus ? "bg-blue-600 text-white" : "text-gray-900"
 									}`
 								}
@@ -96,11 +94,6 @@ export const ComboBox = ({
 							</ComboboxOption>
 						))}
 					</ComboboxOptions>
-				)}
-				{loading && (
-					<div className="absolute z-10 mt-1 w-full px-3 py-2 bg-white text-sm text-gray-500">
-						Loading...
-					</div>
 				)}
 			</div>
 		</Combobox>
