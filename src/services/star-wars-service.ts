@@ -14,7 +14,14 @@ const getCharacter = (id: string) => {
 	return axios.get(STAR_WARS_URLS.getPerson(id)).then((res) => res.data);
 };
 
+const getAvatar = (uid: string) => {
+	return axios
+				.get(STAR_WARS_URLS.getAvatar(uid))
+				.then((res) => res.data)
+}
+
 export default {
 	getCharacter,
 	getCharacters,
+	getAvatar,
 };

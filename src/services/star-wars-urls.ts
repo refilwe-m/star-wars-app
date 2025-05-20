@@ -5,6 +5,6 @@ const peopleURL = `${baseURL}/people`;
 
 export const STAR_WARS_URLS = {
 	getPeople: peopleURL,
-	getAvatar: (id: string) => `${baseImageURL}/${id}`,
+	getAvatar: (id: string) => `${baseImageURL}/id/${id}.json`,
 	getPerson: (id: string) => `${peopleURL}/${id}`,
 };

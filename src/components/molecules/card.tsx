@@ -16,6 +16,7 @@ export const Card: FC<CardProps> = ({ character, isLoading, onClose,avatar }) =>
 	) : (
 		<section className="w-full max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl">
 			<div className="relative h-40 bg-red-900 overflow-hidden">
+        <img src={avatar} alt="Avatar" />
         <div className="absolute inset-0 bg-gradient-to-br from-red-800 to-black opacity-90"></div>
         <div className="absolute bottom-0 left-0 w-full p-6">
           <h1 className="text-3xl font-bold text-white">{character?.name}</h1>
