@@ -1,5 +1,5 @@
 import type { CharacterAPI } from "@/services/types";
-import { Calendar, Eye, Film, MapPin, Rocket, Ruler, User, Weight } from "lucide-react";
+import { Calendar, Eye, Ruler, User, Weight } from "lucide-react";
 import { type FC, useState } from "react";
 
 export type CardProps = {
@@ -29,7 +29,6 @@ export const Card: FC<CardProps> = ({ character, isLoading,isWinner=false, onClo
         </section>
       </section>
       
-      {/* Tab navigation */}
       <section className="flex border-b border-gray-800">
         <button 
           onClick={() => setActiveTab('info')} 
@@ -44,14 +43,13 @@ export const Card: FC<CardProps> = ({ character, isLoading,isWinner=false, onClo
           Image
         </button>
         <button 
-          onClick={() => setActiveTab('ships')} 
-          className={`flex-1 py-3 text-center ${activeTab === 'ships' ? 'text-red-500 border-b-2 border-red-500' : 'text-gray-400'}`}
+          onClick={() => setActiveTab('ai')} 
+          className={`flex-1 py-3 text-center ${activeTab === 'ai' ? 'text-red-500 border-b-2 border-red-500' : 'text-gray-400'}`}
         >
-          Starships
+          AI
         </button>
       </section>
       
-      {/* Content based on active tab */}
       <section className="p-6">
         {activeTab === 'info' && (
           <section className="space-y-4">
@@ -118,19 +116,10 @@ export const Card: FC<CardProps> = ({ character, isLoading,isWinner=false, onClo
           </section>
         )}
         
-        {activeTab === 'ships' && (
+        {activeTab === 'ai' && (
           <section>
-            {/* <h3 className="text-lg font-semibold mb-3">Starships</h3>
-            {character?.starships && character?.starships.length > 0 ? (
-              character?.starships.map((ship, index) => (
-                <section key={index} className="bg-gray-900 p-4 rounded-md flex items-center">
-                  <Rocket className="text-red-500 mr-3" size={20} />
-                  <p>{starshipNames[ship] || "Unknown Starship"}</p>
-                </section>
-              ))
-            ) : (
-              <p className="text-gray-500 italic">No starships registered</p>
-            )} */}
+            <h3>AI Generated Fun Fact</h3>
+            <p>{''}</p>
           </section>
         )}
       </section>
