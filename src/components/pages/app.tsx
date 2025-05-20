@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Lottie from "lottie-react";
 import axios from "axios";
 
 import { Logo } from "@/assets";
 import { useGetStarWarsCharacter, useGetStarWarsCharacters } from "@/queries";
-import robotAnimation from "@/assets/lottie/robotAnimation.json"
 import { STAR_WARS_URLS } from "@/services/star-wars-urls";
 import { ComboBox, RobotAnimation, type Option } from "../atoms";
 import { Card } from "../molecules";
@@ -74,7 +72,7 @@ export const App = () => {
 				<section id="comparison-area" className="flex gap-2 items-center py-3">
 					{hasChar1Info ? (
 						<Card
-							avatar={data?.image ?? ""}
+						avatar={data?.image ?? ""}
 							isLoading={loadingFirstCharacter}
 							character={character1}
 							onClose={() => onRemoveCharacter(character1?.uid)}
@@ -83,6 +81,7 @@ export const App = () => {
 						<p className="text-6xl font-bold text-white">V.S</p>
 					{hasChar2Info ? (
 						<Card
+						avatar={data?.image ?? ""}
 							isLoading={loadingSecondCharacter}
 							character={character2}
 							onClose={() => onRemoveCharacter(character2?.uid)}
