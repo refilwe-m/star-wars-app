@@ -1,3 +1,32 @@
+# Star Wars Character Comparison
+
+A web application that allows users to compare various attributes of Star Wars characters using the SWAPI data.
+
+## Features
+
+- Compare two Star Wars characters side by side
+- Visual representation of characters
+- Attribute comparison (height, mass, birth year, etc.)
+- Winner determination based on attributes
+
+## Tech Stack
+
+- React + TypeScript
+- Vite
+- TanStack Query (for data fetching)
+- TanStack Router
+- Tailwind CSS
+- Vitest (for testing)
+
+## Development
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run dev server: `npm run dev`
+4. Run tests: `npm run test`
+
+________________________________________________________________
+
 Welcome to your new TanStack app! 
 
 # Getting Started
