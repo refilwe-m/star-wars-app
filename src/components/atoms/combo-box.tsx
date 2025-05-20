@@ -28,11 +28,11 @@ export const ComboBox = ({
 }: ComboBoxProps) => {
 	return (
 		<Combobox value={value} onChange={onChange}>
-			<div className="relative border-3 border-gray-300 rounded-2xl">
+			<div className="relative w-full border-3 border-gray-300 rounded-2xl">
 				<section className="flex items-center gap-2">
-					<div className="relative w-full cursor-default overflow-hidden rounded-xl bg-white/80 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+					<div className="relative w-full cursor-default overflow-hidden rounded-xl bg-white/80 text-left shadow-sm">
 						<ComboboxInput
-							className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+							className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
 							displayValue={(option: Option | null) => option?.name || ""}
 							onChange={(event) => setQuery(event.target.value)}
 							placeholder={placeholder}
@@ -56,7 +56,7 @@ export const ComboBox = ({
 				</section>
 
 				{loading ? <ClipLoader /> : (
-					<ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+					<ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
 						{options.map((option) => (
 							<ComboboxOption
 								key={option.id}
