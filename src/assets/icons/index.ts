@@ -1,1 +1,1 @@
-export { default as Logo } from "./LogoStarWars.svg";
+export { default as LogoIcon } from "./LogoStarWars.svg";

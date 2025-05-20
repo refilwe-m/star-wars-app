@@ -7,14 +7,16 @@ export type CardProps = {
 	isLoading: boolean;
 	onClose: () => void;
 	avatar?: string;
+  isWinner?: boolean;
 };
 
-export const Card: FC<CardProps> = ({ character, isLoading, onClose,avatar }) => {
+export const Card: FC<CardProps> = ({ character, isLoading,isWinner=false, onClose,avatar }) => {
 	const [activeTab, setActiveTab] = useState("info");
 	return isLoading ? (
 		<>Loading....</>
 	) : (
-		<section className="w-full max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl">
+    <>
+		<section className={`w-full ${isWinner?'animate-pulse':''} max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl`}>
 			<section className="relative h-40 bg-red-900 overflow-hidden">
         <img src={avatar} alt="Avatar" />
         <section className="absolute inset-0 bg-gradient-to-br from-red-600 to-black opacity-90"></section>
@@ -134,5 +136,6 @@ export const Card: FC<CardProps> = ({ character, isLoading, onClose,avatar }) =>
       </section>
       
 		</section>
+    </>
 	);
 };

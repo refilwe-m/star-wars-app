@@ -4,6 +4,7 @@ import {
 	ComboboxOption,
 	ComboboxOptions,
 } from "@headlessui/react";
+import { debounce } from "lodash";
 import { CheckIcon, Search, XIcon } from "lucide-react";
 import { ClipLoader } from "react-spinners";
 
@@ -34,7 +35,14 @@ export const ComboBox = ({
 						<ComboboxInput
 							className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
 							displayValue={(option: Option | null) => option?.name || ""}
-							onChange={(event) => setQuery(event.target.value)}
+							onChange={(event) =>{
+								const value = event.target.value;
+								debounce(() => {
+									setQuery(value);
+								}, 1000)();
+
+								/* debounce(() => setQuery(event.target.value), 500); */
+							}}
 							placeholder={placeholder}
 						/>
 						<section className="absolute inset-y-0 right-0 flex items-center pr-2">
