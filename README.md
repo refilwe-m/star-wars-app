@@ -22,8 +22,9 @@ A web application that allows users to compare various attributes of Star Wars c
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Run dev server: `npm run dev`
-4. Run tests: `npm run test`
+3. Setup environmental variables following `example.env`
+4. Run dev server: `npm run dev`
+5. Run tests: `npm run test`
 
 ________________________________________________________________
 
