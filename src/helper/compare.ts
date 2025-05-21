@@ -1,5 +1,12 @@
 import type { CharacterAPI } from "@/services/types";
 
+/**
+ * Compares two Star Wars characters based on specified attributes
+ * @param char1 - First character to compare
+ * @param char2 - Second character to compare
+ * @returns Object containing the winner and comparison details
+ */
+
 export const compareCharacters = (char1: CharacterAPI, char2: CharacterAPI) => {
   const attributes: Array<"height" | "mass" | "birth_year"> = [
     "height",
@@ -8,23 +15,21 @@ export const compareCharacters = (char1: CharacterAPI, char2: CharacterAPI) => {
   ];
 
   const wins = attributes.map((attr) => {
-    const val1 = char1[attr];
-    const val2 = char2[attr];
+    const val1 = char1[attr] as string;
+    const val2 = char2[attr] as string;
 
-    // Handle birth_year (extract BBY number and invert comparison)
     if (attr === "birth_year") {
-      const num1 = parseInt(val1.replace("BBY", "")) || 0;
-      const num2 = parseInt(val2.replace("BBY", "")) || 0;
+      const num1 = Number.parseInt(val1.replace("BBY", "")) || 0;
+      const num2 = Number.parseInt(val2.replace("BBY", "")) || 0;
       return {
         attribute: attr,
-        winner: num1 > num2 ? char1.name : char2.name, // Older = higher BBY
+        winner: num1 > num2 ? char1.name : char2.name,
         values: { [char1.name]: val1, [char2.name]: val2 },
       };
     }
 
-    // Handle height/mass (convert to number, default to 0 if invalid)
-    const num1 = parseInt(val1) || 0;
-    const num2 = parseInt(val2) || 0;
+    const num1 = Number.parseInt(val1) || 0;
+    const num2 = Number.parseInt(val2) || 0;
     return {
       attribute: attr,
       winner: num1 > num2 ? char1.name : char2.name,
