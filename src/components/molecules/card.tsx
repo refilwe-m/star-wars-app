@@ -23,7 +23,7 @@ export const Card: FC<CardProps> = ({
 	) : (
 		<>
 			<section
-				className={`w-full ${isWinner ? "animate-pulse" : ""} max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl`}
+				className={`w-full ${isWinner ? "animate-pulse border-4 border-green-500" : ""} max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl`}
 			>
 				<section className="relative h-40 bg-red-900 overflow-hidden">
 					<button
