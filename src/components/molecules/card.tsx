@@ -1,6 +1,17 @@
-import type { CharacterAPI } from "@/services/types";
-import { Calendar, Eye, Ruler, User, Weight, XCircleIcon } from "lucide-react";
+import {
+	Calendar,
+	Eye,
+	Ruler,
+	StarsIcon,
+	User,
+	Weight,
+	XCircleIcon,
+} from "lucide-react";
 import { type FC, useState } from "react";
+
+import { getOpenAIResponse } from "@/services/openai-service";
+import type { CharacterAPI } from "@/services/types";
+import { useMutation } from "@tanstack/react-query";
 
 export type CardProps = {
 	character: CharacterAPI | null;
@@ -18,6 +29,32 @@ export const Card: FC<CardProps> = ({
 	avatar,
 }) => {
 	const [activeTab, setActiveTab] = useState("info");
+	const [funFact, setFunFact] = useState("");
+
+	const prompt = `Generate a fun fact about ${character?.name} from Star Wars, make it short and interesting.`;
+	const { mutateAsync: generateFunFact } = useMutation({
+		mutationFn: () => getOpenAIResponse(prompt),
+		mutationKey: ["generate-fun-fact"],
+		onSuccess: (data) => {
+			const content = data?.choices[0]?.message?.content;
+			if (content) {
+				setFunFact(content);
+			}
+			console.log(data);
+		},
+		onError: (error) => {
+			console.error("Error generating fun fact:", error);
+		},
+	});
+	const handleGenerateFunFact = async () => {
+		try {
+			const response = await generateFunFact();
+			console.log("Generated Fun Fact:", response);
+		} catch (error) {
+			console.error("Error generating fun fact:", error);
+		}
+	};
+
 	return isLoading ? (
 		<>Loading....</>
 	) : (
@@ -62,10 +99,14 @@ export const Card: FC<CardProps> = ({
 					</button>
 					<button
 						type="button"
-						onClick={() => setActiveTab("ai")}
-						className={`flex-1 py-3 text-center ${activeTab === "ai" ? "text-red-500 border-b-2 border-red-500" : "text-gray-400"}`}
+						onClick={() => {
+							setActiveTab("ai");
+
+							handleGenerateFunFact();
+						}}
+						className={`flex gap-2 items-center px-6 py-3 text-center ${activeTab === "ai" ? "text-red-500 border-b-2 border-red-500" : "text-gray-400"}`}
 					>
-						AI
+						<StarsIcon className="text-purple-500 fill w-5 h-5" /> AI
 					</button>
 				</section>
 
@@ -131,7 +172,7 @@ export const Card: FC<CardProps> = ({
 					{activeTab === "ai" && (
 						<section>
 							<h3>AI Generated Fun Fact</h3>
-							<p>{""}</p>
+							<p className="text-xs font-thin">{funFact}</p>
 						</section>
 					)}
 				</section>
