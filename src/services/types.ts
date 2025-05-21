@@ -2,7 +2,7 @@ export type CharacterAPI = {
   name: string;
   url: string;
   height: number;
-  mass: number;
+  mass: number | string;
   hair_color: string;
   skin_color: string;
   eye_color: string;

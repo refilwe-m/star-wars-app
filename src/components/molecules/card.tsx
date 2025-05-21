@@ -1,5 +1,5 @@
 import type { CharacterAPI } from "@/services/types";
-import { Calendar, Eye, Ruler, User, Weight } from "lucide-react";
+import { Calendar, Eye, Ruler, User, Weight, XCircleIcon } from "lucide-react";
 import { type FC, useState } from "react";
 
 export type CardProps = {
@@ -26,6 +26,14 @@ export const Card: FC<CardProps> = ({
 				className={`w-full ${isWinner ? "animate-pulse" : ""} max-w-lg bg-black text-gray-200 rounded-lg overflow-hidden shadow-xl`}
 			>
 				<section className="relative h-40 bg-red-900 overflow-hidden">
+					<button
+						aria-label="Close"
+						type="button"
+						className="absolute z-10 top-2 right-2 p-2 bg-gray-800 rounded-full hover:bg-gray-700"
+						onClick={onClose}
+					>
+						<XCircleIcon className="text-black-500" size={20} />
+					</button>
 					<img src={avatar} alt="Avatar" />
 					<section className="absolute inset-0 bg-gradient-to-br from-red-600 to-black opacity-90" />
 					<section className="absolute bottom-0 left-0 w-full p-6">
