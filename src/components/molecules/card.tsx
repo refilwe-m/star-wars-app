@@ -66,7 +66,7 @@ export const Card: FC<CardProps> = ({
 					<button
 						aria-label="Close"
 						type="button"
-						className="absolute z-10 top-2 right-2 p-2 bg-gray-800 rounded-full hover:bg-gray-700"
+						className="absolute z-5 top-2 right-2 p-2 bg-gray-800 rounded-full hover:bg-gray-700"
 						onClick={onClose}
 					>
 						<XCircleIcon className="text-black-500" size={20} />

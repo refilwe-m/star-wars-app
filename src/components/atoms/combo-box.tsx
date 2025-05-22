@@ -6,6 +6,7 @@ import {
 } from "@headlessui/react";
 import { debounce } from "lodash";
 import { CheckIcon, Search, XIcon } from "lucide-react";
+import { useEffect, useMemo } from "react"; // Add this import
 import { ClipLoader } from "react-spinners";
 
 export type Option = { id: string; name: string };
@@ -27,6 +28,17 @@ export const ComboBox = ({
 	loading = false,
 	placeholder = "Search...",
 }: ComboBoxProps) => {
+	const debouncedSetQuery = useMemo(
+		() => debounce((value: string) => setQuery(value), 1000),
+		[setQuery],
+	);
+
+	useEffect(() => {
+		return () => {
+			debouncedSetQuery.cancel();
+		};
+	}, [debouncedSetQuery]);
+
 	return (
 		<Combobox value={value} onChange={onChange}>
 			<div className="relative w-full border-3 border-gray-300 rounded-2xl">
@@ -35,33 +47,32 @@ export const ComboBox = ({
 						<ComboboxInput
 							className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900"
 							displayValue={(option: Option | null) => option?.name || ""}
-							onChange={(event) =>{
+							onChange={(event) => {
 								const value = event.target.value;
-								debounce(() => {
-									setQuery(value);
-								}, 1000)();
+								debouncedSetQuery(value); // Use the debounced function
 							}}
 							placeholder={placeholder}
 						/>
 						<section className="absolute inset-y-0 right-0 flex items-center pr-2">
 							<Search className="h-5 w-5 text-gray-400 md:visible invisible" />
 							<button
-						aria-label="Clear search"
-						onClick={() => {
-							onChange(null);
-							setQuery("");
-						}}
-						type="button"
-						className="px-2 py-3 text-xs"
-					>
-						<XIcon className="h-3 w-3 text-gray-400 hover:h-4 hover:w-4" />
-					</button>
+								aria-label="Clear search"
+								onClick={() => {
+									onChange(null);
+									setQuery("");
+								}}
+								type="button"
+								className="px-2 py-3 text-xs"
+							>
+								<XIcon className="h-3 w-3 text-gray-400 hover:h-4 hover:w-4" />
+							</button>
 						</section>
 					</div>
-					
 				</section>
 
-				{loading ? <ClipLoader /> : (
+				{loading ? (
+					<ClipLoader />
+				) : (
 					<ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
 						{options.map((option) => (
 							<ComboboxOption
