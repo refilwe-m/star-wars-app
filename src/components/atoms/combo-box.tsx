@@ -49,12 +49,11 @@ export const ComboBox = ({
 							displayValue={(option: Option | null) => option?.name || ""}
 							onChange={(event) => {
 								const value = event.target.value;
-								debouncedSetQuery(value); // Use the debounced function
+								debouncedSetQuery(value);
 							}}
 							placeholder={placeholder}
 						/>
 						<section className="absolute inset-y-0 right-0 flex items-center pr-2">
-							<Search className="h-5 w-5 text-gray-400 md:visible invisible" />
 							<button
 								aria-label="Clear search"
 								onClick={() => {
@@ -64,7 +63,7 @@ export const ComboBox = ({
 								type="button"
 								className="px-2 py-3 text-xs"
 							>
-								<XIcon className="h-3 w-3 text-gray-400 hover:h-4 hover:w-4" />
+								<XIcon className="h-4 w-4 text-gray-500 hover:h-4 hover:w-4" />
 							</button>
 						</section>
 					</div>
