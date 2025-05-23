@@ -1,7 +1,9 @@
 import { type Dispatch, type FC, type SetStateAction, useState } from "react";
 
+import type { Option } from "@/common";
 import { useGetStarWarsCharacters } from "@/queries";
-import { ComboBox, type Option } from "../atoms";
+import { isEmpty, isUndefined } from "lodash";
+import { ComboBox } from "../atoms";
 
 export type CharacterSelection = {
 	placeholder: string;
@@ -17,8 +19,11 @@ export const CharacterSelection: FC<CharacterSelection> = ({
 	setCharacters,
 }) => {
 	const [query, setQuery] = useState("");
-	const { data: searchData, isLoading: searchLoading } =
-		useGetStarWarsCharacters(query);
+	const {
+		data: searchData,
+		error,
+		isLoading: searchLoading,
+	} = useGetStarWarsCharacters(query);
 
 	const clearChars = () => {
 		setCharacters([]);
@@ -26,11 +31,19 @@ export const CharacterSelection: FC<CharacterSelection> = ({
 	};
 
 	return (
-		<section className="flex gap-4 w-2/3 items-center">
+		<section className="flex gap-4 items-center w-2/3">
 			<ComboBox
 				placeholder={placeholder}
 				loading={searchLoading}
 				value={selected}
+				error={
+					error?.message ??
+					(isUndefined(searchData)
+						? null
+						: !isEmpty(searchData)
+							? null
+							: "No character found.")
+				}
 				onChange={setSelected}
 				options={searchData ?? []}
 				setQuery={setQuery}

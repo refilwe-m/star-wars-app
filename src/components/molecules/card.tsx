@@ -12,6 +12,7 @@ import { type FC, useState } from "react";
 import { getOpenAIResponse } from "@/services/openai-service";
 import type { CharacterAPI } from "@/services/types";
 import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export type CardProps = {
 	character: CharacterAPI | null;
@@ -34,26 +35,18 @@ export const Card: FC<CardProps> = ({
 	const prompt = `Generate a fun fact about ${character?.name} from Star Wars, make it short and interesting.`;
 	const { mutateAsync: generateFunFact } = useMutation({
 		mutationFn: () => getOpenAIResponse(prompt),
-		mutationKey: ["generate-fun-fact"],
+		mutationKey: ["generate-fun-fact", character?.name],
 		onSuccess: (data) => {
 			const content = data?.choices[0]?.message?.content;
 			if (content) {
 				setFunFact(content);
 			}
-			console.log(data);
 		},
 		onError: (error) => {
-			console.error("Error generating fun fact:", error);
+			toast.error(`Error generating fun fact: ${error}`);
 		},
 	});
-	const handleGenerateFunFact = async () => {
-		try {
-			const response = await generateFunFact();
-			console.log("Generated Fun Fact:", response);
-		} catch (error) {
-			console.error("Error generating fun fact:", error);
-		}
-	};
+	const handleGenerateFunFact = () => generateFunFact();
 
 	return isLoading ? (
 		<>Loading....</>
